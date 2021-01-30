@@ -6,7 +6,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class TPMovieDetailsAdapter: NSObject {
 
+    //MARK: Properties
+    let delegate: TPMovieDetailsProtocol
+
+    //MARK: Constructor
+    init(delegate: TPMovieDetailsProtocol) {
+        
+        self.delegate = delegate
+    }
 }

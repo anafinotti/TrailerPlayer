@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 //MARK: Network Environment
-enum NetworkEnvironment {
+enum TPNetworkEnvironment {
     
     case production
 }
@@ -17,50 +17,29 @@ enum NetworkEnvironment {
 //MARK: Network Manager
 class TPNetworkManager: NSObject {
     
-    static let networkEnviroment: NetworkEnvironment = .production
+    static let networkEnviroment: TPNetworkEnvironment = .production
     
-    var services = NetworkService()
+    var services = TPNetworkService()
     var parameters = Parameters()
     var headers = HTTPHeaders()
     var method: HTTPMethod!
-    var urlString : String! = baseURL
-    var url: URL!
+    var urlString : String! = TPNetworkService.baseURL
+    var url: String!
     var encoding: ParameterEncoding! = URLEncoding.default
     
     init(data: [String:Any],
          headers: [String:String] = [:],
-         url : String?,
-         service :Services? = nil,
-         method: HTTPMethod? = .get,
-         isJSONRequest: Bool = true) {
+         url : String,
+         method: HTTPMethod? = .get) {
         
         super.init()
         
         data.forEach{ parameters.updateValue($0.value, forKey: $0.key) }
         headers.forEach({ self.headers.add(name: $0.key, value: $0.value) })
         
-        if let service = service,
-           url == nil {
-            
-            self.urlString += service.rawValue
-        }
-        else { self.urlString = url }
+        self.url = url
         
-        if !isJSONRequest {
-            
-
-            
-            encoding = URLEncoding.default
-        }
-        if let encoded = urlString?.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
-           let url = URL(string: encoded) {
-
-            self.url = url
-        }
-
         self.method = method
-        
-        print("Service: \(service?.rawValue ?? self.urlString ?? "") \n data: \(parameters)")
     }
     
     func executeQuery<T>(completion: @escaping (Result<T, Error>) -> Void) where T: Codable {

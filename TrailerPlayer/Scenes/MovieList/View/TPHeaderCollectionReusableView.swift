@@ -9,4 +9,15 @@ import UIKit
 
 class TPHeaderCollectionReusableView: UICollectionReusableView {
         
+    //MARK: - Outlets
+    @IBOutlet weak var labelTitle: UILabel!
+    
+    //MARK: - Properties
+    var title: String? {
+        
+        didSet {
+            
+            labelTitle.text = title
+        }
+    }
 }

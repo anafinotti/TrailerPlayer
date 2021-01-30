@@ -7,9 +7,9 @@
 
 import Foundation
 
-class StreamingApi {
+class StreamApi {
     
-    static func getMovieList(movieId: String,
+    static func getStreamings(movieId: String,
                              audioLanguageId: String,
                              subtitleLanguageId: String,
                              classificationId: Int,

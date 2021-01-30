@@ -7,6 +7,8 @@
 
 import UIKit
 
-class TPMovieDetailsProtocol: NSObject {
-
+protocol TPMovieDetailsProtocol {
+    
+    func getMovie() -> MovieDetail
+    func getStream() -> Stream
 }

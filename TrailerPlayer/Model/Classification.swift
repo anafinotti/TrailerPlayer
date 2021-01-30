@@ -7,6 +7,9 @@
 
 import UIKit
 
-class Classification: Codable {
+struct Classification: Codable {
 
+    let id: Int
+    let name: String
+    let age: Int
 }

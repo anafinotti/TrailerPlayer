@@ -7,6 +7,8 @@
 
 import UIKit
 
-class Images: Codable {
+struct Images: Codable {
 
+    let artwork: String
+    let snapshot: String
 }

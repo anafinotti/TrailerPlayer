@@ -7,20 +7,25 @@
 
 import Foundation
 
-// MARK: BaseURL
-var baseURL: String {
+enum ListId: String, CaseIterable {
     
-    switch TPNetworkManager.networkEnviroment {
-    
-        case .production: return "​https://gizmo.rakuten.tv/"
+    case bestMovieSelection = "free-la-mejor-seleccion-de-peliculas"
+    case lastRelease = "cinema-ultimos-estrenos"
+    case freeRakutenStories = "free-rakuten-stories"
+    case freeActionMovies = "free-peliculas-de-accion"
+    case cinema10to20 = "cinema-2010-2020-una-decada-de-cine-compra-desde-3-99"
+    case freeComedyMovies = "free-peliculas-de-comedia"
+}
+
+class TPNetworkService {
+
+    // MARK: BaseURL
+    static var baseURL: String {
+        
+        switch TPNetworkManager.networkEnviroment {
+        
+        case .production:
+            return "https://gizmo.rakuten.tv/"
+        }
     }
 }
-
-// MARK: Services
-enum Services : String {
-    
-    case list = "v3/lists/estrenos-imprescindibles-en-taquilla"
-    case detailes = "v3/movies"
-}
-
-class NetworkService : NSObject { }
