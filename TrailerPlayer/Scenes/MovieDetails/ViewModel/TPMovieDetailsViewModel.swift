@@ -5,54 +5,54 @@
 //  Created by Ana Finotti on 27/01/21.
 //
 
-import UIKit
+import RxSwift
+import RxCocoa
 
 class TPMovieDetailsViewModel {
     
-    //MARK: - Closures
-    var reloadViewClosure: (()->())?
-    var playVideoClosure: (()->())?
-    
     //MARK: - Properties
-    private var movieDetail: MovieDetail = MovieDetail() {
+    private let movieServiceProtocol: MovieServiceProtocol
+    private let streamServiceProtocol: StreamServiceProtocol
+    
+    //MARK: - Initializer
+    init(movieServiceProtocol: MovieServiceProtocol = MovieService(),
+         streamServiceProtocol: StreamServiceProtocol = StreamService()) {
         
-        didSet {
-            
-            self.reloadViewClosure?()
-        }
+        self.movieServiceProtocol = movieServiceProtocol
+        self.streamServiceProtocol = streamServiceProtocol
     }
     
-    private var streamDetail: Stream = Stream() {
+    lazy var movieDetail: MovieDetail = {
         
-        didSet {
-            
-            self.playVideoClosure?()
-        }
-    }
+        return MovieDetail()
+    }()
     
-    var movie: MovieDetail {
+    lazy var stream: Stream = {
         
-        return movieDetail
-    }
-    
-    var stream: Stream {
-        
-        return streamDetail
-    }
+        return Stream()
+    }()
     
     //MARK: - API Calls
-    func fetchMovieDetails(movieId: String, classificationId: Int, marketCode: String, locale: String) {
-                
-        MovieApi.getMovieDetails(movieId: movieId, classificationId: classificationId, marketCode: marketCode, locale: locale) { (response, error) in
-                        
-            guard let response = response else { fatalError(error.debugDescription) }
-            
-            self.movieDetail = response
-        }
+    func fetchMovieDetails(movieId: String,
+                           classificationId: Int,
+                           marketCode: String,
+                           locale: String) -> Observable<MovieDetail> {
+        
+        movieServiceProtocol.getMovieDetails(id: movieId,
+                                             classificationId: classificationId,
+                                             marketCode: marketCode,
+                                             locale: locale).map {
+                                                
+                                                self.movieDetail = $0
+                                                return $0
+                                             }
     }
     
-    func fetchMovieStreamings(movieDetail: MovieDetail, classificationId: Int, marketCode: String, locale: String) {
-                
+    func fetchMovieStreamings(movieDetail: MovieDetail,
+                              classificationId: Int,
+                              marketCode: String,
+                              locale: String) -> Observable<Stream> {
+        
         if let movieId = movieDetail.id,
            let trailer = movieDetail.trailers?.first,
            let audioLanguage = trailer.audioLanguages?.first,
@@ -60,12 +60,18 @@ class TPMovieDetailsViewModel {
            let subtitleLanguage = trailer.subtitleLanguages?.first,
            let subtitleLanguageId = subtitleLanguage.id {
             
-            StreamApi.getStreamings(movieId: movieId, audioLanguageId: audioLanguageId, subtitleLanguageId: subtitleLanguageId, classificationId: classificationId, marketCode: marketCode, locale: locale) { (response, error) in
-                                
-                guard let response = response else { fatalError(error.debugDescription) }
-                
-                self.streamDetail = response
-            }
+            return streamServiceProtocol.fetchStreamings(movieId: movieId,
+                                                         audioLanguageId: audioLanguageId,
+                                                         subtitleLanguageId: subtitleLanguageId,
+                                                         classificationId: classificationId,
+                                                         marketCode: marketCode,
+                                                         locale: locale).map {
+                                                            
+                                                            self.stream = $0
+                                                            return $0
+                                                         }
         }
+        
+        return Observable.empty()
     }
 }

@@ -18,6 +18,7 @@
 		0C37D1D125BF6300001F3E39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C37D1CF25BF6300001F3E39 /* LaunchScreen.storyboard */; };
 		0C37D1DC25BF6300001F3E39 /* TrailerPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C37D1DB25BF6300001F3E39 /* TrailerPlayerTests.swift */; };
 		0C37D1E725BF6300001F3E39 /* TrailerPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C37D1E625BF6300001F3E39 /* TrailerPlayerUITests.swift */; };
+		0C46210B25C7561D0068F351 /* ReactiveExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C46210A25C7561D0068F351 /* ReactiveExtension.swift */; };
 		0C520B3C25C02C22007B614F /* TPNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C520B3B25C02C22007B614F /* TPNetworkManager.swift */; };
 		0C520B4125C02C49007B614F /* TPNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C520B4025C02C49007B614F /* TPNetworkService.swift */; };
 		0C520B4D25C034BD007B614F /* TPMovieListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C520B4C25C034BD007B614F /* TPMovieListProtocol.swift */; };
@@ -32,11 +33,18 @@
 		0CA7879A25C223EB00F0F08B /* TPMovieDetailsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA7879925C223EB00F0F08B /* TPMovieDetailsAdapter.swift */; };
 		0CA7879F25C22EF300F0F08B /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA7879E25C22EF300F0F08B /* MovieDetail.swift */; };
 		0CA787A425C2328200F0F08B /* TPMovieDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA787A325C2328200F0F08B /* TPMovieDetailsProtocol.swift */; };
+		0CB3361125C73B2F003B67BD /* StreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB3361025C73B2F003B67BD /* StreamService.swift */; };
+		0CC7B92725C5B5B300627848 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7B92625C5B5B300627848 /* MovieService.swift */; };
+		0CC7B92F25C5B76700627848 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7B92E25C5B76700627848 /* Constants.swift */; };
+		0CC7B93525C5B7C600627848 /* ApiRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7B93425C5B7C600627848 /* ApiRouter.swift */; };
+		0CC7B93D25C5B84E00627848 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7B93C25C5B84E00627848 /* ApiError.swift */; };
+		0CC7B94225C5B87B00627848 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7B94125C5B87B00627848 /* ApiClient.swift */; };
 		0CDE33E125C4964800C22EE5 /* Trailer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE33E025C4964800C22EE5 /* Trailer.swift */; };
 		0CDE33E625C4A1B900C22EE5 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE33E525C4A1B900C22EE5 /* Stream.swift */; };
 		0CDE340025C4E0EE00C22EE5 /* MovieApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE33FF25C4E0EE00C22EE5 /* MovieApi.swift */; };
 		0CDE341125C4EA6700C22EE5 /* StreamApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE341025C4EA6700C22EE5 /* StreamApi.swift */; };
 		0CDE341D25C4F56500C22EE5 /* TPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE341C25C4F56500C22EE5 /* TPButton.swift */; };
+		0CDE342825C501C100C22EE5 /* TPMovieServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE342725C501C100C22EE5 /* TPMovieServiceTests.swift */; };
 		0CEE6FBE25C1F34F00D26B9C /* TPHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C87F21025C1F08A00A72D1B /* TPHeaderCollectionReusableView.swift */; };
 		C364F91E6B528FF1C4EDF5DC /* Pods_TrailerPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2029F0CD1FFE8278B6F600 /* Pods_TrailerPlayer.framework */; };
 		D01CE47C5E20A4E8DB320DEF /* Pods_TrailerPlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D09C499B6B659CA672F5AA /* Pods_TrailerPlayerTests.framework */; };
@@ -79,6 +87,7 @@
 		0C37D1E625BF6300001F3E39 /* TrailerPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPlayerUITests.swift; sourceTree = "<group>"; };
 		0C37D1E825BF6300001F3E39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C37D20E25BF8594001F3E39 /* Movie.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Movie.storyboard; sourceTree = "<group>"; };
+		0C46210A25C7561D0068F351 /* ReactiveExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveExtension.swift; sourceTree = "<group>"; };
 		0C520B3B25C02C22007B614F /* TPNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPNetworkManager.swift; sourceTree = "<group>"; };
 		0C520B4025C02C49007B614F /* TPNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPNetworkService.swift; sourceTree = "<group>"; };
 		0C520B4C25C034BD007B614F /* TPMovieListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMovieListProtocol.swift; sourceTree = "<group>"; };
@@ -93,12 +102,19 @@
 		0CA7879925C223EB00F0F08B /* TPMovieDetailsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMovieDetailsAdapter.swift; sourceTree = "<group>"; };
 		0CA7879E25C22EF300F0F08B /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		0CA787A325C2328200F0F08B /* TPMovieDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMovieDetailsProtocol.swift; sourceTree = "<group>"; };
+		0CB3361025C73B2F003B67BD /* StreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamService.swift; sourceTree = "<group>"; };
+		0CC7B92625C5B5B300627848 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
+		0CC7B92E25C5B76700627848 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0CC7B93425C5B7C600627848 /* ApiRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRouter.swift; sourceTree = "<group>"; };
+		0CC7B93C25C5B84E00627848 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		0CC7B94125C5B87B00627848 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		0CDE2CA71055C09A0F1480AD /* Pods-TrailerPlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrailerPlayerTests.release.xcconfig"; path = "Target Support Files/Pods-TrailerPlayerTests/Pods-TrailerPlayerTests.release.xcconfig"; sourceTree = "<group>"; };
 		0CDE33E025C4964800C22EE5 /* Trailer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trailer.swift; sourceTree = "<group>"; };
 		0CDE33E525C4A1B900C22EE5 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		0CDE33FF25C4E0EE00C22EE5 /* MovieApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieApi.swift; sourceTree = "<group>"; };
 		0CDE341025C4EA6700C22EE5 /* StreamApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamApi.swift; sourceTree = "<group>"; };
 		0CDE341C25C4F56500C22EE5 /* TPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPButton.swift; sourceTree = "<group>"; };
+		0CDE342725C501C100C22EE5 /* TPMovieServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMovieServiceTests.swift; sourceTree = "<group>"; };
 		33B5588650E9B1FC75A21463 /* Pods-TrailerPlayer-TrailerPlayerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrailerPlayer-TrailerPlayerUITests.debug.xcconfig"; path = "Target Support Files/Pods-TrailerPlayer-TrailerPlayerUITests/Pods-TrailerPlayer-TrailerPlayerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		581D8D8A59E657E5973004C8 /* Pods-TrailerPlayer-TrailerPlayerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrailerPlayer-TrailerPlayerUITests.release.xcconfig"; path = "Target Support Files/Pods-TrailerPlayer-TrailerPlayerUITests/Pods-TrailerPlayer-TrailerPlayerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		718598866938347F1F1A3325 /* Pods_TrailerPlayer_TrailerPlayerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrailerPlayer_TrailerPlayerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,6 +234,7 @@
 		0C27DFD425C02AA700E50378 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				0CC7B92525C5B5A300627848 /* Services */,
 				0CDE33FE25C4E0CC00C22EE5 /* API */,
 				0C520B3B25C02C22007B614F /* TPNetworkManager.swift */,
 				0C520B4025C02C49007B614F /* TPNetworkService.swift */,
@@ -268,6 +285,7 @@
 			children = (
 				0C37D1DB25BF6300001F3E39 /* TrailerPlayerTests.swift */,
 				0C37D1DD25BF6300001F3E39 /* Info.plist */,
+				0CDE342725C501C100C22EE5 /* TPMovieServiceTests.swift */,
 			);
 			path = TrailerPlayerTests;
 			sourceTree = "<group>";
@@ -362,6 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				0CA7878825C2217000F0F08B /* UIViewExtension.swift */,
+				0C46210A25C7561D0068F351 /* ReactiveExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,6 +390,19 @@
 			children = (
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0CC7B92525C5B5A300627848 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0CC7B92625C5B5B300627848 /* MovieService.swift */,
+				0CC7B92E25C5B76700627848 /* Constants.swift */,
+				0CC7B93425C5B7C600627848 /* ApiRouter.swift */,
+				0CC7B93C25C5B84E00627848 /* ApiError.swift */,
+				0CC7B94125C5B87B00627848 /* ApiClient.swift */,
+				0CB3361025C73B2F003B67BD /* StreamService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		0CDE33FE25C4E0CC00C22EE5 /* API */ = {
@@ -653,10 +685,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CB3361125C73B2F003B67BD /* StreamService.swift in Sources */,
 				0C27DFD025C028A800E50378 /* TPMovieListViewModel.swift in Sources */,
+				0C46210B25C7561D0068F351 /* ReactiveExtension.swift in Sources */,
 				0C27DFAC25C023E500E50378 /* TPMovieListViewController.swift in Sources */,
 				0C520B4D25C034BD007B614F /* TPMovieListProtocol.swift in Sources */,
 				0CA787A425C2328200F0F08B /* TPMovieDetailsProtocol.swift in Sources */,
+				0CC7B92725C5B5B300627848 /* MovieService.swift in Sources */,
 				0CDE341D25C4F56500C22EE5 /* TPButton.swift in Sources */,
 				0CA7879225C2238300F0F08B /* TPMovieDetailsViewModel.swift in Sources */,
 				0CA7878025C21B2A00F0F08B /* TPMovieDetailsViewController.swift in Sources */,
@@ -665,8 +700,10 @@
 				0CA7878925C2217000F0F08B /* UIViewExtension.swift in Sources */,
 				0CA7879A25C223EB00F0F08B /* TPMovieDetailsAdapter.swift in Sources */,
 				0CDE33E125C4964800C22EE5 /* Trailer.swift in Sources */,
+				0CC7B93525C5B7C600627848 /* ApiRouter.swift in Sources */,
 				0CDE341125C4EA6700C22EE5 /* StreamApi.swift in Sources */,
 				0C37D1C525BF62FE001F3E39 /* AppDelegate.swift in Sources */,
+				0CC7B93D25C5B84E00627848 /* ApiError.swift in Sources */,
 				0C520BEB25C1B64D007B614F /* Movie.swift in Sources */,
 				0CDE340025C4E0EE00C22EE5 /* MovieApi.swift in Sources */,
 				0C520B5625C034FF007B614F /* TPMovieListAdapter.swift in Sources */,
@@ -678,6 +715,8 @@
 				0CEE6FBE25C1F34F00D26B9C /* TPHeaderCollectionReusableView.swift in Sources */,
 				0C37D1C725BF62FE001F3E39 /* SceneDelegate.swift in Sources */,
 				0C27DFC625C027AE00E50378 /* Classification.swift in Sources */,
+				0CC7B92F25C5B76700627848 /* Constants.swift in Sources */,
+				0CC7B94225C5B87B00627848 /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +725,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C37D1DC25BF6300001F3E39 /* TrailerPlayerTests.swift in Sources */,
+				0CDE342825C501C100C22EE5 /* TPMovieServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

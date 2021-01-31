@@ -82,29 +82,7 @@ extension TPMovieListAdapter: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        switch Section(rawValue: section) {
-        
-        case .bestMovieSelection:
-            return delegate.retrieveNumberOfItemsForBestMovieSelection()
-            
-        case .cinema10to20:
-            return delegate.retrieveNumberOfItemsForCinema10to20()
-            
-        case .freeActionMovies:
-            return delegate.retrieveNumberOfItemsForFreeActionMovies()
-            
-        case .freeComedyMovies:
-            return delegate.retrieveNumberOfItemsForFreeComedyMovies()
-            
-        case .freeRakutenStories:
-            return delegate.retrieveNumberOfItemsForFreeRakutenStories()
-            
-        case .lastRelease:
-            return delegate.retrieveNumberOfItemsForLastRelease()
-            
-        case .none:
-            fatalError("Should not be none")
-        }
+        return delegate.retrieveNumberOfItems(by: section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

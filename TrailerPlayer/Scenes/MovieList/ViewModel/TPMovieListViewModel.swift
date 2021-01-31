@@ -5,145 +5,71 @@
 //  Created by Ana Finotti on 26/01/21.
 //
 
-import UIKit
+import Foundation
+import RxSwift
+import RxCocoa
 
 class TPMovieListViewModel {
     
     // MARK: - Closures
     var reloadCollectionViewClosure: (()->())?
     var updateLoadingStatusClosure: (()->())?
+    var onError: (()->())?
     
-    // MARK: - Properties
+    //MARK: - Properties
+    private let movieServiceProtocol: MovieServiceProtocol
+    
+    let isLoading = BehaviorRelay<Bool>(value: true)
     var selectedMovie: Movie?
+    
+    lazy var movieList: [MovieList] = {
+        
+        return [MovieList]()
+    }()
+    
+    //MARK: - Initializer
+    init(movieServiceProtocol: MovieServiceProtocol = MovieService()) {
+        
+        self.movieServiceProtocol = movieServiceProtocol
+    }
 
-    private var movieList: [MovieList] = [MovieList]() {
+    //MARK: Layout
+    func getNumberOfItems(by section: Int) -> Int {
         
-        didSet {
-            
-            self.reloadCollectionViewClosure?()
-        }
-    }
-    
-    var numberOfItemsForBestMovieSelection: Int {
+        let listId = ListId.allCases[section]
         
-        guard let movies = movieList.filter({ $0.id == ListId.bestMovieSelection.rawValue }).first?.movies else { return 0 }
-        
+        guard let movies = movieList.filter({ $0.id == listId.rawValue }).first?.movies else { return 0 }
         return movies.count
     }
-    
-    var numberOfItemsForCinema10to20: Int {
-        
-        guard let movies = movieList.filter({ $0.id == ListId.cinema10to20.rawValue }).first?.movies else { return 0 }
-        
-        return movies.count
-    }
-    
-    var numberOfItemsForFreeActionMovies: Int {
-        
-        guard let movies = movieList.filter({ $0.id == ListId.freeActionMovies.rawValue }).first?.movies else { return 0 }
-        
-        return movies.count
-    }
-    
-    var numberOfItemsForFreeComedyMovies: Int {
-        
-        guard let movies = movieList.filter({ $0.id == ListId.freeComedyMovies.rawValue }).first?.movies else { return 0 }
-        
-        return movies.count
-    }
-    
-    var numberOfItemsForFreeRakutenStories: Int {
-                
-        guard let movies = movieList.filter({ $0.id == ListId.freeRakutenStories.rawValue }).first?.movies else { return 0 }
-        
-        return movies.count
-    }
-    
-    var numberOfItemsForLastRelease: Int {
-        
-        guard let movies = movieList.filter({ $0.id == ListId.lastRelease.rawValue }).first?.movies else { return 0 }
-        
-        return movies.count
-    }
-    
-    var isLoading: Bool = false {
-        
-        didSet {
-            
-            self.updateLoadingStatusClosure?()
-        }
-    }
-    
-    //MARK: - Constructor
     
     //MARK: - API Calls
-    func fetchMovieList(arrayListId: Array<ListId>, classificationId: Int, marketCode: String, locale: String) {
+    func fetchMovieList(listId: ListId,
+                        classificationId: Int,
+                        marketCode: String,
+                        locale: String) -> Observable<MovieList> {
         
-        self.isLoading = true
-        
-        var copyArrayListId = arrayListId
-        
-        guard let currentListId = copyArrayListId.first else { fatalError("No list id.") }
-        
-        copyArrayListId.removeFirst()
-        
-        MovieApi.getMovieList(id: currentListId, classificationId: classificationId, marketCode: marketCode, locale: locale) { (movie, error) in
+        movieServiceProtocol.getMovieList(id: listId, classificationId: classificationId, marketCode: marketCode, locale: locale).map {
             
-            guard let movie = movie else { fatalError(error.debugDescription) }
-                        
-            self.movieList.append(movie)
-            
-            guard copyArrayListId.count > 0 else {
-                
-                self.isLoading = false
-                return
-            }
-                            
-            self.fetchMovieList(arrayListId: copyArrayListId, classificationId: classificationId, marketCode: marketCode, locale: locale)
-
+            let movieList = $0
+            self.movieList.append(movieList)
+            return $0
         }
     }
     
     //MARK: - API Callback
-    fileprivate func getMovie(_at indexPath: IndexPath, listId: ListId) -> Movie {
+    func getMovieList(_at indexPath: IndexPath) -> Movie {
         
+        return getMovie(_at: indexPath)
+    }
+    
+    fileprivate func getMovie(_at indexPath: IndexPath) -> Movie {
+        
+        let listId = ListId.allCases[indexPath.section]
+
         let moviesSection = movieList.filter({ $0.id == listId.rawValue }).first
         
         guard let movie = moviesSection?.movies?[indexPath.row] else { fatalError() }
         
         return movie
-    }
-    
-    func getMovieList(_at indexPath: IndexPath) -> Movie {
-        
-        switch Section(rawValue: indexPath.section) {
-        
-        case .bestMovieSelection:
-            
-            return getMovie(_at: indexPath, listId: .bestMovieSelection)
-            
-        case .cinema10to20:
-            
-            return getMovie(_at: indexPath, listId: .cinema10to20)
-            
-        case .freeActionMovies:
-            
-            return getMovie(_at: indexPath, listId: .freeActionMovies)
-            
-        case .freeComedyMovies:
-            
-            return getMovie(_at: indexPath, listId: .freeComedyMovies)
-            
-        case .freeRakutenStories:
-            
-            return getMovie(_at: indexPath, listId: .freeRakutenStories)
-            
-        case .lastRelease:
-            
-            return getMovie(_at: indexPath, listId: .lastRelease)
-            
-        case .none:
-            fatalError("Should not be none")
-        }
     }
 }

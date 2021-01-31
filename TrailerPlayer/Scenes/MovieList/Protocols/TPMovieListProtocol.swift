@@ -12,11 +12,5 @@ protocol TPMovieListProtocol {
     func getMovie( at indexPath: IndexPath) -> Movie
     func itemSelected( at indexPath: IndexPath)
 
-    func retrieveNumberOfItemsForBestMovieSelection() -> Int
-    func retrieveNumberOfItemsForLastRelease() -> Int
-    func retrieveNumberOfItemsForFreeRakutenStories() -> Int
-    func retrieveNumberOfItemsForFreeActionMovies() -> Int
-    func retrieveNumberOfItemsForCinema10to20() -> Int
-    func retrieveNumberOfItemsForFreeComedyMovies() -> Int
-
+    func retrieveNumberOfItems( by section: Int) -> Int
 }

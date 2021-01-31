@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TPMovieListViewController: UIViewController {
     
@@ -14,6 +16,8 @@ class TPMovieListViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     //MARK: - Properties
+    let disposeBag = DisposeBag()
+    
     lazy var viewModel: TPMovieListViewModel = {
         
         return TPMovieListViewModel()
@@ -30,6 +34,7 @@ class TPMovieListViewController: UIViewController {
         setupViewModel()
     }
     
+    //MARK: Layout
     func setupCollectionView() {
         
         adapter = TPMovieListAdapter(delegate: self)
@@ -43,46 +48,60 @@ class TPMovieListViewController: UIViewController {
     
     func setupViewModel() {
         
-        viewModel.reloadCollectionViewClosure = { [weak self] () in
-            
-            DispatchQueue.main.async {
-                
-                self?.collectionView.reloadData()
-            }
-        }
+        viewModel.isLoading
+            .bind(to: activityIndicator.rx.isAnimating)
+            .disposed(by: disposeBag)
         
-        viewModel.updateLoadingStatusClosure = { [weak self] () in
-            
-            DispatchQueue.main.async {
-                
-                let isLoading = self?.viewModel.isLoading ?? false
-                
-                if isLoading {
-                    
-                    self?.activityIndicator.startAnimating()
-                    self?.activityIndicator.isHidden = false
-                    
-                    UIView.animate(withDuration: 0.2, animations: {
-                        
-                        self?.collectionView.alpha = 0.0
-                    })
-                }
-                else {
-                    
-                    self?.activityIndicator.stopAnimating()
-                    self?.activityIndicator.isHidden = true
-                    
-                    UIView.animate(withDuration: 0.2, animations: {
-                        
-                        self?.collectionView.alpha = 1.0
-                    })
-                }
-            }
-        }
+        self.viewModel.isLoading.accept(true)
         
-        viewModel.fetchMovieList(arrayListId: ListId.allCases, classificationId: 6, marketCode: "es", locale: "es")
+        fetchMovieList(arrayListId: ListId.allCases, classificationId: 6, marketCode: "es", locale: "es")
     }
     
+    func fetchMovieList(arrayListId: [ListId],
+                        classificationId: Int,
+                        marketCode: String,
+                        locale: String) {
+        
+        var copyArrayListId = arrayListId
+        
+        guard let currentListId = copyArrayListId.first else { fatalError("No list id.") }
+        
+        copyArrayListId.removeFirst()
+        
+        viewModel.fetchMovieList(listId: currentListId,
+                                 classificationId: classificationId,
+                                 marketCode: marketCode,
+                                 locale: locale)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { response in
+                
+                guard copyArrayListId.count > 0 else {
+                    
+                    self.viewModel.isLoading.accept(false)
+                    self.activityIndicator.isHidden = true
+                    
+                    self.collectionView.reloadData()
+                    return
+                }
+                
+                self.fetchMovieList(arrayListId: copyArrayListId, classificationId: classificationId, marketCode: marketCode, locale: locale)
+                
+            }, onError: { error in
+                
+                switch error {
+                
+                case ApiError.conflict:
+                    print("Conflict error")
+                case ApiError.forbidden:
+                    print("Forbidden error")
+                case ApiError.notFound:
+                    print("Not found error")
+                default:
+                    print("Unknown error:", error)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -105,42 +124,16 @@ extension TPMovieListViewController: TPMovieListProtocol {
     func itemSelected(at indexPath: IndexPath) {
         
         viewModel.selectedMovie = self.viewModel.getMovieList(_at: indexPath)
-
+        
         DispatchQueue.main.async {
-
+            
             self.performSegue(withIdentifier: "detailsSegue", sender: nil)
         }
-    
     }
     
-    func retrieveNumberOfItemsForBestMovieSelection() -> Int {
+    func retrieveNumberOfItems(by section: Int) -> Int {
         
-        return viewModel.numberOfItemsForBestMovieSelection
-    }
-    
-    func retrieveNumberOfItemsForLastRelease() -> Int {
-        
-        return viewModel.numberOfItemsForLastRelease
-    }
-    
-    func retrieveNumberOfItemsForFreeRakutenStories() -> Int {
-        
-        return viewModel.numberOfItemsForFreeRakutenStories
-    }
-    
-    func retrieveNumberOfItemsForFreeActionMovies() -> Int {
-        
-        return viewModel.numberOfItemsForFreeActionMovies
-    }
-    
-    func retrieveNumberOfItemsForCinema10to20() -> Int {
-        
-        return viewModel.numberOfItemsForCinema10to20
-    }
-    
-    func retrieveNumberOfItemsForFreeComedyMovies() -> Int {
-        
-        return viewModel.numberOfItemsForFreeComedyMovies
+        return viewModel.getNumberOfItems(by: section)
     }
     
     func getMovie(at indexPath: IndexPath) -> Movie {
