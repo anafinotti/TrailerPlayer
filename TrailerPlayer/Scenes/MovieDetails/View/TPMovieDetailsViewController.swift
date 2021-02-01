@@ -55,7 +55,7 @@ class TPMovieDetailsViewController: UIViewController {
     }
     
     //MARK: - Layout
-    func setupView(movieDetail: MovieDetail) {
+    func setupView(movieDetail: MovieDetails) {
         
         buttonPlay.isEnabled = true
         
@@ -144,7 +144,7 @@ class TPMovieDetailsViewController: UIViewController {
 
 extension TPMovieDetailsViewController: TPMovieDetailsProtocol {
     
-    func getMovie() -> MovieDetail {
+    func getMovie() -> MovieDetails {
         
         return viewModel.movieDetail
     }

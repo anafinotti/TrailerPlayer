@@ -22,9 +22,9 @@ class TPMovieDetailsViewModel {
         self.streamServiceProtocol = streamServiceProtocol
     }
     
-    lazy var movieDetail: MovieDetail = {
+    lazy var movieDetail: MovieDetails = {
         
-        return MovieDetail()
+        return MovieDetails()
     }()
     
     lazy var stream: Stream = {
@@ -36,7 +36,7 @@ class TPMovieDetailsViewModel {
     func fetchMovieDetails(movieId: String,
                            classificationId: Int,
                            marketCode: String,
-                           locale: String) -> Observable<MovieDetail> {
+                           locale: String) -> Observable<MovieDetails> {
         
         movieServiceProtocol.getMovieDetails(id: movieId,
                                              classificationId: classificationId,
@@ -48,7 +48,7 @@ class TPMovieDetailsViewModel {
                                              }
     }
     
-    func fetchMovieStreamings(movieDetail: MovieDetail,
+    func fetchMovieStreamings(movieDetail: MovieDetails,
                               classificationId: Int,
                               marketCode: String,
                               locale: String) -> Observable<Stream> {

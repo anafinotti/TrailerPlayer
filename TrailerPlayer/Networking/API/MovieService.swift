@@ -18,7 +18,7 @@ protocol MovieServiceProtocol {
     func getMovieDetails(id: String,
                          classificationId: Int,
                          marketCode: String,
-                         locale: String) -> Observable<MovieDetail>
+                         locale: String) -> Observable<MovieDetails>
 }
 
 class MovieService : MovieServiceProtocol {
@@ -36,7 +36,7 @@ class MovieService : MovieServiceProtocol {
     func getMovieDetails(id: String,
                          classificationId: Int,
                          marketCode: String,
-                         locale: String) -> Observable<MovieDetail> {
+                         locale: String) -> Observable<MovieDetails> {
         
         let url = ApiRouter.getMovieDetails(id: id, classificationId: classificationId, marketCode: marketCode, locale: locale)
         

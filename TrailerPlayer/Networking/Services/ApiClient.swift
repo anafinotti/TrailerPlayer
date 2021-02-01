@@ -10,12 +10,12 @@ import Alamofire
 import Foundation
 
 class ApiClient {
-    
+        
     static func request<T: Codable> (_ urlConvertible: URLRequestConvertible) -> Observable<T> {
         
         return Observable<T>.create { observer in
             
-            //using Alamofire
+            //Alamofire
             let request = AF.request(urlConvertible).responseDecodable { (response: DataResponse<T, AFError>) in
                 
                 switch response.result {

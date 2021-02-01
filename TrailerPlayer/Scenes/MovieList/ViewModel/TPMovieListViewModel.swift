@@ -11,11 +11,6 @@ import RxCocoa
 
 class TPMovieListViewModel {
     
-    // MARK: - Closures
-    var reloadCollectionViewClosure: (()->())?
-    var updateLoadingStatusClosure: (()->())?
-    var onError: (()->())?
-    
     //MARK: - Properties
     private let movieServiceProtocol: MovieServiceProtocol
     
